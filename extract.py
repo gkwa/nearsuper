@@ -11,7 +11,7 @@ import urllib.parse
 import bs4
 
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.DEBUG,
     format="%(pathname)s:%(lineno)d - %(asctime)s - %(levelname)s - %(message)s",
 )
 
