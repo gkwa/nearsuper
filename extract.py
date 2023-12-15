@@ -6,6 +6,7 @@ import logging
 import pathlib
 import quopri
 import sys
+import time
 import urllib.parse
 
 import bs4
@@ -119,12 +120,18 @@ class Extract:
         raw_payload = part.get_payload()
         payload = unquote(raw_payload) if quoted else raw_payload
 
+        data_dir = pathlib.Path("data")
+        data_dir.mkdir(exist_ok=True, parents=True)
+
         if "html" in ctype:
-            assert not self.html
-            self.folder = pathlib.Path(uri).name
+            # assert not self.html
+            self.folder = pathlib.Path(uri or data_dir).name
             self.raw_html = raw_payload
             self.html = payload
             self.soup = bs4.BeautifulSoup(payload, features="html.parser")
+            timestamp = int(time.time() * 1_000_000)
+            file_path = pathlib.Path(f"out-{ctype[0]}-{ctype[1]}-{timestamp}.html")
+            pathlib.Path(file_path).write_text(str(self.soup))
         else:
             attrs = self.add_file(uri, ctype)
             self.payloads[attrs["name"]] = payload
