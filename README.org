@@ -1,0 +1,5 @@
+Original:
+https://raw.githubusercontent.com/yangbo/mhtviewer/master/extract.py
+
+From:
+https://github.com/yangbo/mhtviewer?tab=readme-ov-file#mht-unarchive
